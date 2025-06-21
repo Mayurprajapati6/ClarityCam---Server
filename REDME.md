@@ -15,3 +15,7 @@
 -  npm i -g nodemon
 
 -  npm i concurrently(for this project I installed)
+
+- npm i dotenv
+
+-  npm i -D @types/express
