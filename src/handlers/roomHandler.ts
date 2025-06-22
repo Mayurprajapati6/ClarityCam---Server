@@ -32,6 +32,14 @@ const roomHandler = (socket: Socket) => {
         console.log("added peer to room",rooms);
         socket.join(roomId); // make the user join the socket room
 
+        // whenever anyone joins the room
+
+        socket.on("ready", () => {
+            // from the frontend one someone joins the room we will emit a ready event
+            // then from our server we will emit an event to all the clients conn that a new peer had added
+            socket.to(roomId).emit("user-joined",{peerId});
+        })
+
         // below event is for loggin purpose
         socket.emit("get-users", {
             roomId,
