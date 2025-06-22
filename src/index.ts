@@ -1,8 +1,9 @@
-import express from "express";
-import ServerConfig from "./config/serverConfig";
-import { Server } from "socket.io"
-import http from "http";
 import cors from "cors";
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import ServerConfig from "./config/serverConfig";
+import roomHandler from "./handlers/roomHandler";
 
 const app = express();
 
@@ -13,19 +14,17 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "*",
-        methods: ["GET","POST"]
-    }
+        methods: ["GET", "POST"],
+    },
 });
 
-io.on("connection",(socket) => {
+io.on("connection", (socket) => {
     console.log("New user connected");
-
-    socket.on("disconnect",() => {
+    roomHandler(socket); // pass the socket connection to the room handler for room creation and joining
+    socket.on("disconnect", () => {
         console.log("User disconnected");
-    })
-})
-
-
+    });
+});
 
 server.listen(ServerConfig.PORT, () => {
     console.log(`server is up at port ${ServerConfig.PORT}`);

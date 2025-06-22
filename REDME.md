@@ -12,10 +12,13 @@
 
 -- server restart automatically
 
--  npm i -g nodemon
+    (1)  npm i -g nodemon
 
 -  npm i concurrently(for this project I installed)
 
 - npm i dotenv
 
 -  npm i -D @types/express
+
+# WebRtc
+- peer server used
